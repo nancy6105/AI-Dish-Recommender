@@ -2,7 +2,7 @@ package com.aifood.entity.dish;
 
 import java.time.LocalDateTime;
 
-import com.aifood.enums.CuisineType;
+import com.aifood.entity.cuisine.Cuisine;
 import com.aifood.enums.DietType;
 import com.aifood.enums.MealType;
 import com.aifood.enums.PriceCategory;
@@ -24,8 +24,10 @@ public class Dish {
     @Column(length = 2000)
     private String description;
 
-    @Enumerated(EnumType.STRING)
-    private CuisineType cuisine;
+    @ManyToOne(fetch = FetchType.LAZY)
+
+    @JoinColumn(name = "cuisine_id", nullable = false)
+    private Cuisine cuisine;
 
     @Enumerated(EnumType.STRING)
     private MealType mealType;
@@ -94,14 +96,6 @@ public class Dish {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public CuisineType getCuisine() {
-        return cuisine;
-    }
-
-    public void setCuisine(CuisineType cuisine) {
-        this.cuisine = cuisine;
     }
 
     public MealType getMealType() {
@@ -223,5 +217,14 @@ public class Dish {
     public void setServingSize(Integer servingSize) {
         this.servingSize = servingSize;
     }
+
+        public Cuisine getCuisine() {
+        return cuisine;
+    }
+
+    public void setCuisine(Cuisine cuisine) {
+        this.cuisine = cuisine;
+    }
+
 
 }
