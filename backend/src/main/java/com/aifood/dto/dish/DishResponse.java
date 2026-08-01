@@ -10,7 +10,9 @@ public class DishResponse {
 
     private String description;
 
-    private CuisineType cuisine;
+    private Long cuisineId;
+
+    private String cuisineName;
 
     private MealType mealType;
 
@@ -62,12 +64,20 @@ public class DishResponse {
         this.description = description;
     }
 
-    public CuisineType getCuisine() {
-        return cuisine;
+    public Long getCuisineId() {
+        return cuisineId;
     }
 
-    public void setCuisine(CuisineType cuisine) {
-        this.cuisine = cuisine;
+    public void setCuisineId(Long cuisineId) {
+        this.cuisineId = cuisineId;
+    }
+
+    public String getCuisineName() {
+        return cuisineName;
+    }
+
+    public void setCuisineName(String cuisineName) {
+        this.cuisineName = cuisineName;
     }
 
     public MealType getMealType() {

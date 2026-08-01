@@ -24,21 +24,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http
-                .csrf(csrf -> csrf.disable())
-
+        http.csrf(csrf -> csrf.disable())
                 .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).authorizeHttpRequests(auth -> 
+                                auth.requestMatchers(
                                 "/api/users/register",
-                                "/api/users/login"
-                        ).permitAll()
-
-                        .anyRequest().authenticated())
-
-                .httpBasic(Customizer.withDefaults())
+                                "/api/users/login",
+                                "/api/dishes/**",
+                                "/api/cuisines/**",
+                                "/api/recommendations/**"
+                        )
+                        .permitAll().anyRequest().authenticated())
+                        .httpBasic(Customizer.withDefaults())
 
                 .addFilterBefore(
                         jwtAuthenticationFilter,
@@ -46,11 +43,6 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-    // @Bean
-    // PasswordEncoder passwordEncoder() {
-    //     return new BCryptPasswordEncoder();
-    // }
 
     @Bean
     AuthenticationManager authenticationManager(
