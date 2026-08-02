@@ -2,6 +2,7 @@ package com.aifood.controller.dish;
 
 import com.aifood.dto.dish.CreateDishRequest;
 import com.aifood.dto.dish.DishResponse;
+import com.aifood.dto.ingredient.IngredientResponse;
 import com.aifood.service.dish.DishService;
 
 import jakarta.validation.Valid;
@@ -35,5 +36,29 @@ public class DishController {
     @GetMapping("/{id}")
     public DishResponse getDishById(@PathVariable Long id) {
         return dishService.getDishById(id);
+    }
+
+
+    @PostMapping("/{dishId}/ingredients/{ingredientId}")
+    public void addIngredientToDish(
+            @PathVariable Long dishId,
+            @PathVariable Long ingredientId) {
+
+        dishService.addIngredientToDish(dishId, ingredientId);
+    }
+
+    @DeleteMapping("/{dishId}/ingredients/{ingredientId}")
+    public void removeIngredientFromDish(
+            @PathVariable Long dishId,
+            @PathVariable Long ingredientId) {
+
+        dishService.removeIngredientFromDish(dishId, ingredientId);
+    }
+
+    @GetMapping("/{dishId}/ingredients")
+    public List<IngredientResponse> getIngredientsByDish(
+            @PathVariable Long dishId) {
+
+        return dishService.getIngredientsByDish(dishId);
     }
 }   

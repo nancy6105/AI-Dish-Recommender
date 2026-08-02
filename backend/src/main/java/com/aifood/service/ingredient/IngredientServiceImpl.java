@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.aifood.dto.ingredient.CreateIngredientRequest;
 import com.aifood.dto.ingredient.IngredientResponse;
 import com.aifood.entity.ingredient.Ingredient;
+import com.aifood.mapper.ingredient.IngredientMapper;
 import com.aifood.repository.ingredient.IngredientRepository;
 
 @Service
@@ -33,7 +34,7 @@ public class IngredientServiceImpl implements IngredientService {
 
         Ingredient savedIngredient = ingredientRepository.save(ingredient);
 
-        return mapToResponse(savedIngredient);
+        return IngredientMapper.toResponse(savedIngredient);
     }
 
     @Override
@@ -41,7 +42,7 @@ public class IngredientServiceImpl implements IngredientService {
 
         return ingredientRepository.findAll()
                 .stream()
-                .map(this::mapToResponse)
+                .map(IngredientMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
@@ -51,7 +52,7 @@ public class IngredientServiceImpl implements IngredientService {
         Ingredient ingredient = ingredientRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Ingredient not found."));
 
-        return mapToResponse(ingredient);
+        return IngredientMapper.toResponse(ingredient);
     }
 
     @Override
@@ -61,17 +62,5 @@ public class IngredientServiceImpl implements IngredientService {
                 .orElseThrow(() -> new RuntimeException("Ingredient not found."));
 
         ingredientRepository.delete(ingredient);
-    }
-
-    private IngredientResponse mapToResponse(Ingredient ingredient) {
-
-        IngredientResponse response = new IngredientResponse();
-
-        response.setId(ingredient.getId());
-        response.setName(ingredient.getName());
-        response.setDescription(ingredient.getDescription());
-        response.setCategory(ingredient.getCategory());
-
-        return response;
     }
 }
