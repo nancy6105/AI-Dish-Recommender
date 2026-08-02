@@ -1,6 +1,11 @@
 package com.aifood.entity.ingredient;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.aifood.entity.dish.Dish;
 import com.aifood.enums.IngredientCategory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
@@ -21,6 +26,11 @@ public class Ingredient {
     @Enumerated(EnumType.STRING)
     private IngredientCategory category;
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "ingredients")
+    private Set<Dish> dishes = new HashSet<>();
+
+    
     public void setId(Long id) {
         this.id = id;
     }
@@ -54,5 +64,13 @@ public class Ingredient {
 
     public void setCategory(IngredientCategory category) {
         this.category = category;
+    }
+
+    public Set<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(Set<Dish> dishes) {
+        this.dishes = dishes;
     }
 }

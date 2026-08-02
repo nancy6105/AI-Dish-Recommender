@@ -10,6 +10,11 @@ import com.aifood.enums.SpiceLevel;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.aifood.entity.ingredient.Ingredient;
+
 @Entity
 @Table(name = "dishes")
 public class Dish {
@@ -226,5 +231,20 @@ public class Dish {
         this.cuisine = cuisine;
     }
 
+    @ManyToMany
+    @JoinTable(
+        name = "dish_ingredients",
+        joinColumns = @JoinColumn(name = "dish_id"),
+        inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+    )
+    private Set<Ingredient> ingredients = new HashSet<>();
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
 
 }

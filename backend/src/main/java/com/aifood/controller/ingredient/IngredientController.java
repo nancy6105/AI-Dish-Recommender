@@ -21,8 +21,7 @@ public class IngredientController {
     }
 
     @PostMapping
-    public IngredientResponse createIngredient(
-            @Valid @RequestBody CreateIngredientRequest request) {
+    public IngredientResponse createIngredient(@Valid @RequestBody CreateIngredientRequest request) {
 
         return ingredientService.createIngredient(request);
     }

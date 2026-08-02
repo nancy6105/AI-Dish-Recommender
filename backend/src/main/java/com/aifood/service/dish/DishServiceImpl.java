@@ -9,11 +9,15 @@ import org.springframework.stereotype.Service;
 
 import com.aifood.dto.dish.CreateDishRequest;
 import com.aifood.dto.dish.DishResponse;
+import com.aifood.dto.ingredient.IngredientResponse;
 import com.aifood.entity.cuisine.Cuisine;
 import com.aifood.entity.dish.Dish;
+import com.aifood.entity.ingredient.Ingredient;
 import com.aifood.mapper.dish.DishMapper;
+import com.aifood.mapper.ingredient.IngredientMapper;
 import com.aifood.repository.cuisine.CuisineRepository;
 import com.aifood.repository.dish.DishRepository;
+import com.aifood.repository.ingredient.IngredientRepository;
 
 @Service
 public class DishServiceImpl implements DishService {
@@ -22,9 +26,14 @@ public class DishServiceImpl implements DishService {
 
     private final CuisineRepository cuisineRepository;
 
-    public DishServiceImpl(DishRepository dishRepository, CuisineRepository cuisineRepository) {
+    private final IngredientRepository ingredientRepository;
+    
+    
+
+    public DishServiceImpl(DishRepository dishRepository, CuisineRepository cuisineRepository, IngredientRepository ingredientRepository) {
         this.dishRepository = dishRepository;
         this.cuisineRepository = cuisineRepository;
+        this.ingredientRepository = ingredientRepository;
     }
 
     @Override
@@ -60,6 +69,46 @@ public class DishServiceImpl implements DishService {
                 .orElseThrow(() -> new RuntimeException("Dish not found"));
 
         return DishMapper.toResponse(dish);
+    }
+
+    @Override
+    public void addIngredientToDish(Long dishId, Long ingredientId) {
+
+        Dish dish = dishRepository.findById(dishId)
+                .orElseThrow(() -> new RuntimeException("Dish not found"));
+
+        Ingredient ingredient = ingredientRepository.findById(ingredientId)
+                .orElseThrow(() -> new RuntimeException("Ingredient not found"));
+
+        dish.getIngredients().add(ingredient);
+
+        dishRepository.save(dish);
+    }
+
+    @Override
+    public void removeIngredientFromDish(Long dishId, Long ingredientId) {
+
+        Dish dish = dishRepository.findById(dishId)
+                .orElseThrow(() -> new RuntimeException("Dish not found"));
+
+        Ingredient ingredient = ingredientRepository.findById(ingredientId)
+                .orElseThrow(() -> new RuntimeException("Ingredient not found"));
+
+        dish.getIngredients().remove(ingredient);
+
+        dishRepository.save(dish);
+    }
+
+    @Override
+    public List<IngredientResponse> getIngredientsByDish(Long dishId) {
+
+        Dish dish = dishRepository.findById(dishId)
+                .orElseThrow(() -> new RuntimeException("Dish not found"));
+
+        return dish.getIngredients()
+                .stream()
+                .map(IngredientMapper::toResponse)
+                .toList();
     }
 
 }
