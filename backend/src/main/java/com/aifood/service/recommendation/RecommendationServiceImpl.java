@@ -42,7 +42,7 @@ public class RecommendationServiceImpl implements RecommendationService {
             response.setCuisine(dish.getCuisine().getName());
 
             response.setScore(result.getScore());
-            response.setReason(result.getReason());
+            response.setReasons(result.getReasons());
 
             if (result.getScore() > 0) {
                 recommendations.add(response);
