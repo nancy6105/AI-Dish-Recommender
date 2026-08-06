@@ -1,5 +1,7 @@
 package com.aifood.dto.recommendation;
 
+import java.util.List;
+
 public class RecommendationResponse {
 
     private Long dishId;
@@ -10,7 +12,7 @@ public class RecommendationResponse {
 
     private Integer score;
 
-    private String reason;
+    private List<String> reasons;
 
     public Long getDishId() {
         return dishId;
@@ -44,11 +46,11 @@ public class RecommendationResponse {
         this.score = score;
     }
 
-    public String getReason() {
-        return reason;
+    public List<String> getReasons() {
+        return reasons;
     }
 
-    public void setReason(String reason) {
-        this.reason = reason;
+    public void setReasons(List<String> reasons) {
+        this.reasons = reasons;
     }
 }

@@ -1,16 +1,19 @@
 package com.aifood.dto.recommendation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RecommendationResult {
 
     private int score;
-    private String reason;
+    private List<String> reasons = new ArrayList<>();
 
     public RecommendationResult() {
     }
 
-    public RecommendationResult(int score, String reason) {
+    public RecommendationResult(int score, List<String> reasons) {
         this.score = score;
-        this.reason = reason;
+        this.reasons = reasons;
     }
 
     public int getScore() {
@@ -21,11 +24,11 @@ public class RecommendationResult {
         this.score = score;
     }
 
-    public String getReason() {
-        return reason;
+    public List<String> getReasons() {
+        return reasons;
     }
 
-    public void setReason(String reason) {
-        this.reason = reason;
+    public void setReasons(List<String> reasons) {
+        this.reasons = reasons;
     }
 }
