@@ -71,5 +71,51 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+
+
+        //         String token = authHeader.substring(7);
+
+        // String email = jwtService.extractUsername(token);
+
+        // System.out.println("JWT email: " + email);
+
+        // if (email != null &&
+        //         SecurityContextHolder.getContext().getAuthentication() == null) {
+
+        //     UserDetails userDetails =
+        //             userDetailsService.loadUserByUsername(email);
+
+        //     System.out.println("User found: " + userDetails.getUsername());
+
+        //     boolean valid = jwtService.isTokenValid(token, userDetails);
+
+        //     System.out.println("JWT valid: " + valid);
+
+        //     if (valid) {
+
+        //         UsernamePasswordAuthenticationToken authentication =
+        //                 new UsernamePasswordAuthenticationToken(
+        //                         userDetails,
+        //                         null,
+        //                         userDetails.getAuthorities());
+
+        //         authentication.setDetails(
+        //                 new WebAuthenticationDetailsSource()
+        //                         .buildDetails(request));
+
+        //         SecurityContextHolder
+        //                 .getContext()
+        //                 .setAuthentication(authentication);
+
+        //         System.out.println("Authentication set successfully");
+        //     }
+        // }
+
+        // System.out.println(
+        //     "AUTH BEFORE CHAIN: " +
+        //     SecurityContextHolder.getContext().getAuthentication());
+
+        
+        // filterChain.doFilter(request, response);
     }
 }

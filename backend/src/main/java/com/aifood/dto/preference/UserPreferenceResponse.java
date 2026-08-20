@@ -1,4 +1,4 @@
-package com.aifood.dto.recommendation;
+package com.aifood.dto.preference;
 
 import java.util.List;
 
@@ -7,9 +7,9 @@ import com.aifood.enums.MealType;
 import com.aifood.enums.PriceCategory;
 import com.aifood.enums.SpiceLevel;
 
-public class RecommendationRequest {
-
-    private Long cuisineId;
+public class UserPreferenceResponse {
+    
+    private Long id;
 
     private DietType dietType;
 
@@ -18,25 +18,49 @@ public class RecommendationRequest {
     private SpiceLevel spiceLevel;
 
     private PriceCategory priceCategory;
+    
+    private Integer maxCalories;
+
+    private Double minProtein;
+
+    private Integer maxPrepTime;
 
     private List<Long> preferredIngredientIds;
 
     private List<Long> excludedIngredientIds;
 
-    private Double minProtein;
-
-    private Integer maxCalories;
-
-    private Integer maxPrepTime;
-
     private Boolean onlyAvailable;
-    
-    public Long getCuisineId() {
-        return cuisineId;
+
+    public Boolean getOnlyAvailable() {
+        return onlyAvailable;
     }
 
-    public void setCuisineId(Long cuisineId) {
-        this.cuisineId = cuisineId;
+    public void setOnlyAvailable(Boolean onlyAvailable) {
+        this.onlyAvailable = onlyAvailable;
+    }
+
+    public List<Long> getPreferredIngredientIds() {
+        return preferredIngredientIds;
+    }
+
+    public void setPreferredIngredientIds(List<Long> preferredIngredientIds) {
+        this.preferredIngredientIds = preferredIngredientIds;
+    }
+
+    public List<Long> getExcludedIngredientIds() {
+        return excludedIngredientIds;
+    }
+
+    public void setExcludedIngredientIds(List<Long> excludedIngredientIds) {
+        this.excludedIngredientIds = excludedIngredientIds;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public DietType getDietType() {
@@ -71,20 +95,12 @@ public class RecommendationRequest {
         this.priceCategory = priceCategory;
     }
 
-    public List<Long> getPreferredIngredientIds() {
-        return preferredIngredientIds;
+    public Integer getMaxCalories() {
+        return maxCalories;
     }
 
-    public void setPreferredIngredientIds(List<Long> preferredIngredientIds) {
-        this.preferredIngredientIds = preferredIngredientIds;
-    }
-
-    public List<Long> getExcludedIngredientIds() {
-        return excludedIngredientIds;
-    }
-
-    public void setExcludedIngredientIds(List<Long> excludedIngredientIds) {
-        this.excludedIngredientIds = excludedIngredientIds;
+    public void setMaxCalories(Integer maxCalories) {
+        this.maxCalories = maxCalories;
     }
 
     public Double getMinProtein() {
@@ -95,14 +111,6 @@ public class RecommendationRequest {
         this.minProtein = minProtein;
     }
 
-    public Integer getMaxCalories() {
-        return maxCalories;
-    }
-
-    public void setMaxCalories(Integer maxCalories) {
-        this.maxCalories = maxCalories;
-    }
-
     public Integer getMaxPrepTime() {
         return maxPrepTime;
     }
@@ -111,13 +119,6 @@ public class RecommendationRequest {
         this.maxPrepTime = maxPrepTime;
     }
 
-    public Boolean getOnlyAvailable() {
-        return onlyAvailable;
-    }
-
-    public void setOnlyAvailable(Boolean onlyAvailable) {
-        this.onlyAvailable = onlyAvailable;
-    }
-
     
+
 }

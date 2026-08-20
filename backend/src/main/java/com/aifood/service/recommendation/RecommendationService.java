@@ -8,4 +8,5 @@ import com.aifood.dto.recommendation.RecommendationResponse;
 public interface RecommendationService {
     
     List<RecommendationResponse> recommendDish(RecommendationRequest request);
+    List<RecommendationResponse> recommendMyDishes();
 }

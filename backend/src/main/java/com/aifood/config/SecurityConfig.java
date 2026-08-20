@@ -32,7 +32,7 @@ public class SecurityConfig {
                                 "/api/users/login",
                                 "/api/dishes/**",
                                 "/api/cuisines/**",
-                                "/api/recommendations/**",
+                                "/api/recommendations",
                                 "/api/ingredients/**"
                         )
                         .permitAll().anyRequest().authenticated())
