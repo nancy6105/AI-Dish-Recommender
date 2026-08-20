@@ -15,6 +15,22 @@ public class RecommendationEngine {
 
     public RecommendationResult evaluate(Dish dish, RecommendationRequest request) {
 
+        if(hasExcludedIngredient(dish, request)){
+            List<String> reasons = new ArrayList<>();
+            for(Ingredient ingredient : dish.getIngredients()){
+                if(request.getExcludedIngredientIds().contains(ingredient.getId())){
+                    reasons.add("Contains excluded ingredient: "+ ingredient.getName());
+                }
+            }
+
+            return new RecommendationResult(Integer.MIN_VALUE, reasons);
+        }
+
+
+        if(isUnavailable(dish, request)){
+            return new RecommendationResult(Integer.MIN_VALUE, List.of("Currently unavailable"));
+        }
+
         int totalScore = 0;
         List<String> reasons = new ArrayList<>();
 
@@ -42,12 +58,7 @@ public class RecommendationEngine {
 
         totalScore += preferred.getScore();
         reasons.addAll(preferred.getReasons());
-
-        RecommendationResult excluded = scoreExcludedIngredients(dish, request);
-
-        totalScore += excluded.getScore();
-        reasons.addAll(excluded.getReasons());
-
+        
         RecommendationResult protein = scoreProtein(dish, request);
 
         totalScore += protein.getScore();
@@ -62,11 +73,6 @@ public class RecommendationEngine {
 
         totalScore += prepTime.getScore();
         reasons.addAll(prepTime.getReasons());
-
-        RecommendationResult availability = scoreAvailability(dish, request);
-
-        totalScore += availability.getScore();
-        reasons.addAll(availability.getReasons());
 
         return new RecommendationResult(totalScore, reasons);
     }
@@ -171,31 +177,6 @@ public class RecommendationEngine {
         return new RecommendationResult(score, reasons);
     }
 
-    private RecommendationResult scoreExcludedIngredients(Dish dish, RecommendationRequest request) {
-
-        int score = 0;
-        List<String> reasons = new ArrayList<>();
-
-        if (request.getExcludedIngredientIds() == null
-                || request.getExcludedIngredientIds().isEmpty()) {
-
-            return new RecommendationResult(0, new ArrayList<>());
-        }
-
-        for (Ingredient ingredient : dish.getIngredients()) {
-
-            if (request.getExcludedIngredientIds()
-                    .contains(ingredient.getId())) {
-
-                score -= 30;
-
-                reasons.add("Contains excluded ingredient:" + ingredient.getName());
-            }
-        }
-
-        return new RecommendationResult(score, reasons);
-    }
-
     private RecommendationResult scoreProtein(Dish dish, RecommendationRequest request) {
 
         int score = 0;
@@ -247,22 +228,24 @@ public class RecommendationEngine {
         return new RecommendationResult(score, reasons);
     }
 
-    private RecommendationResult scoreAvailability(Dish dish, RecommendationRequest request) {
+    private boolean hasExcludedIngredient(Dish dish, RecommendationRequest request){
 
-        int score = 0;
-        List<String> reasons = new ArrayList<>();
+        if(request.getExcludedIngredientIds() == null || request.getExcludedIngredientIds().isEmpty()){
+            return false;
+        }
 
-        if (Boolean.TRUE.equals(request.getOnlyAvailable())) {
-
-            if (Boolean.TRUE.equals(dish.getIsAvailable())) {
-                score += 15;
-                reasons.add("Currently available. ");
-            } else {
-                score -= 100;
-                reasons.add("Currently unavailable. ");
+        for(Ingredient ingredient : dish.getIngredients()){
+            if(request.getExcludedIngredientIds().contains(ingredient.getId())){
+                return true;
             }
         }
 
-        return new RecommendationResult(score, reasons);
+        return false;
+    }
+
+
+    private boolean isUnavailable(Dish dish, RecommendationRequest request){
+
+        return Boolean.TRUE.equals(request.getOnlyAvailable()) && !Boolean.TRUE.equals(dish.getIsAvailable());
     }
 }
