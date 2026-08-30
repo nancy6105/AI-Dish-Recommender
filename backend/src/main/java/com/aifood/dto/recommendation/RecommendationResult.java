@@ -13,7 +13,9 @@ public class RecommendationResult {
 
     public RecommendationResult(int score, List<String> reasons) {
         this.score = score;
-        this.reasons = reasons;
+        this.reasons = reasons != null
+                ? reasons
+                : new ArrayList<>();
     }
 
     public int getScore() {
@@ -29,6 +31,8 @@ public class RecommendationResult {
     }
 
     public void setReasons(List<String> reasons) {
-        this.reasons = reasons;
+        this.reasons = reasons != null
+                ? reasons
+                : new ArrayList<>();
     }
 }
