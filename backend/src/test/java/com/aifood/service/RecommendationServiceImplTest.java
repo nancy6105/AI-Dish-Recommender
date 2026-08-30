@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -13,9 +11,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.aifood.dto.recommendation.RecommendationResponse;
-import com.aifood.entity.dish.Dish;
-import com.aifood.entity.preference.UserPreference;
-import com.aifood.entity.user.User;
 import com.aifood.recommendation.RecommendationEngine;
 import com.aifood.repository.dish.DishRepository;
 import com.aifood.repository.preference.UserPreferenceRepository;
