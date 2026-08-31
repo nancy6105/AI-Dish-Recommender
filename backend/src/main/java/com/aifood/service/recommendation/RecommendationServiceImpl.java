@@ -16,6 +16,7 @@ import com.aifood.entity.dish.Dish;
 import com.aifood.entity.ingredient.Ingredient;
 import com.aifood.entity.preference.UserPreference;
 import com.aifood.entity.user.User;
+import com.aifood.exception.ResourceNotFoundException;
 import com.aifood.recommendation.RecommendationEngine;
 import com.aifood.repository.dish.DishRepository;
 import com.aifood.repository.preference.UserPreferenceRepository;
@@ -79,7 +80,7 @@ public class RecommendationServiceImpl implements RecommendationService {
 
         String email = authentication.getName();
 
-        UserPreference preference = userPreferenceRepository.findByUserId(getUserIdByEmail(email)).orElseThrow(() -> new RuntimeException("User preferences not found"));
+        UserPreference preference = userPreferenceRepository.findByUserId(getUserIdByEmail(email)).orElseThrow(() -> new ResourceNotFoundException("User preferences not found"));
 
         RecommendationRequest request = new RecommendationRequest();
 
@@ -111,7 +112,7 @@ public class RecommendationServiceImpl implements RecommendationService {
     }
 
     private Long getUserIdByEmail(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         return user.getId();
     }
