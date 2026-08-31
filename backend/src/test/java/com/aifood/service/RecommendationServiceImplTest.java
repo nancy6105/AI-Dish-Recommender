@@ -29,23 +29,14 @@ import com.aifood.recommendation.RecommendationEngine;
 import com.aifood.repository.dish.DishRepository;
 import com.aifood.repository.preference.UserPreferenceRepository;
 import com.aifood.repository.user.UserRepository;
-import static org.mockito.ArgumentMatchers.argThat;
 
 import java.util.Optional;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.aifood.dto.recommendation.RecommendationRequest;
-import com.aifood.dto.recommendation.RecommendationResult;
-import com.aifood.entity.cuisine.Cuisine;
-import com.aifood.entity.ingredient.Ingredient;
-import com.aifood.entity.preference.UserPreference;
 import com.aifood.entity.user.User;
-import com.aifood.enums.DietType;
-import com.aifood.enums.MealType;
-import com.aifood.enums.PriceCategory;
-import com.aifood.enums.SpiceLevel;
+
 import com.aifood.service.recommendation.RecommendationServiceImpl;
 
 class RecommendationServiceImplTest {
